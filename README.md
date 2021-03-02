@@ -297,6 +297,8 @@ for file in *; do mv "${file}" "${file//01 Step/Step}"; done
 ### Commands Executed during the course
 
 ```
+gcloud container clusters resize --zone <name_of_zone> <name_of_your_cluster> --num-nodes=0
+gcloud container clusters resize --zone <name_of_zone> <name_of_your_cluster> --num-nodes=3
 
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
 
