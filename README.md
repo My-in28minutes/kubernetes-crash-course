@@ -299,8 +299,8 @@ for file in *; do mv "${file}" "${file//01 Step/Step}"; done
 ```
 #gcloud container clusters resize --zone <name_of_zone> <name_of_your_cluster> --num-nodes=0
 #gcloud container clusters resize --zone <name_of_zone> <name_of_your_cluster> --num-nodes=3
-gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=0
-gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=3
+gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=0 --project kohls-mobile-lle
+gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=3 --project kohls-mobile-lle
 
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
 
