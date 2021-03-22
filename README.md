@@ -358,7 +358,7 @@ kubectl get pods -o wide
 kubectl delete pod hello-world-rest-api-67c79fd44f-n6c7l
 kubectl get pods -o wide
 kubectl delete pod hello-world-rest-api-67c79fd44f-8bhdt
-
+#Display teh status of all components running on master node.
 kubectl get componentstatuses
 kubectl get pods --all-namespaces
 
