@@ -381,6 +381,8 @@ kubectl rollout history deployment hello-world-rest-api
 kubectl get pods
 kubectl logs hello-world-rest-api-67c79fd44f-d6q9z
 kubectl logs hello-world-rest-api-67c79fd44f-d6q9z -f
+# Execute the command again and again. Here every 2 secs run the curl
+watch curl http://34.71.104.186:8080/hello-world
 
 kubectl get deployment hello-world-rest-api
 kubectl get deployment hello-world-rest-api -o wide
