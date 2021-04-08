@@ -312,7 +312,8 @@ kubectl scale deployment hello-world-rest-api --replicas=3
 kubectl delete pod <>
 kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70
-kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.2-RELEASE
+#with  --record CHANGE-CAUSE will be recorded
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.2-RELEASE --record
 kubectl get events --sort-by=.metadata.creationTimestamp
 #Display the status of all components running on master node.
 kubectl get componentstatuses
