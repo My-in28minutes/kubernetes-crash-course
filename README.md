@@ -336,8 +336,11 @@ watch -n 0.1 curl 34.122.212.210:8080/hello-world
 kubectl get deployment hello-world-rest-api -o yaml > deployment.yaml
 kubectl get service hello-world-rest-api -o yaml > service.yaml
 kubectl delete all -l app=hello-world-rest-api
+# Combine deployment & Service togteher in one file below. Backup folder.
 kubectl apply -f deployment.yaml
 kubectl get all -o wide
+# Gives teh comparison report between current deoloyment and deployment.yaml
+kubectl diff -f deployment.yaml
 
 -----
 
