@@ -319,8 +319,8 @@ kubectl get componentstatuses
 
 kubectl rollout history deployment hello-world-rest-api
 kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.1-RELEASE --record
-kubectl rollout history deployment hello-world-rest-api
 kubectl rollout status deployment hello-world-rest-api
+kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl rollout undo deployment hello-world-rest-api --to-revision=2
 kubectl rollout status deployment hello-world-rest-api
 kubectl rollout history deployment hello-world-rest-api
