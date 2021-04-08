@@ -302,6 +302,26 @@ for file in *; do mv "${file}" "${file//01 Step/Step}"; done
 gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=0 --project kohls-mobile-lle
 gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=3 --project kohls-mobile-lle
 
+Mine
+-----
+docker run -p 8080:8080 pndrns/hello-world-rest-api:0.0.1-RELEASE
+
+kubectl create deployment hello-world-rest-api --image=pndrns/hello-world-rest-api:0.0.1-RELEASE
+kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
+kubectl scale deployment hello-world-rest-api --replicas=3
+kubectl delete pod <>
+kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.2-RELEASE
+kubectl get events --sort-by=.metadata.creationTimestamp
+#Display the status of all components running on master node.
+kubectl get componentstatuses
+
+kubectl rollout history deployment hello-world-rest-api
+
+
+-----
+
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
 
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE
@@ -358,7 +378,6 @@ kubectl get pods -o wide
 kubectl delete pod hello-world-rest-api-67c79fd44f-n6c7l
 kubectl get pods -o wide
 kubectl delete pod hello-world-rest-api-67c79fd44f-8bhdt
-#Display teh status of all components running on master node.
 kubectl get componentstatuses
 kubectl get pods --all-namespaces
 
