@@ -318,7 +318,23 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl get componentstatuses
 
 kubectl rollout history deployment hello-world-rest-api
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.1-RELEASE --record
+kubectl rollout history deployment hello-world-rest-api
+kubectl rollout status deployment hello-world-rest-api
+kubectl rollout undo deployment hello-world-rest-api --to-revision=2
+kubectl rollout status deployment hello-world-rest-api
+kubectl rollout history deployment hello-world-rest-api
 
+kubectl get pods
+kubectl logs hello-world-rest-api-67c79fd44f-d6q9z -f
+# Execute the command again and again. Here every 2 secs run the curl
+watch curl http://34.71.104.186:8080/hello-world
+
+kubectl get deployment hello-world-rest-api -o yaml > deployment.yaml
+kubectl get service hello-world-rest-api -o yaml > service.yaml
+kubectl delete all -l app=hello-world-rest-api
+kubectl apply -f deployment.yaml
+kubectl get all -o wide
 
 -----
 
