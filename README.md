@@ -339,8 +339,10 @@ kubectl delete all -l app=hello-world-rest-api
 # Combine deployment & Service togteher in one file below. Backup folder.
 kubectl apply -f deployment.yaml
 kubectl get all -o wide
-# Gives teh comparison report between current deoloyment and deployment.yaml
+# Gives the comparison report between current deoloyment and deployment.yaml
 kubectl diff -f deployment.yaml
+# Keeps runnimg regularly
+kubectl get svc --watch
 
 -----
 
