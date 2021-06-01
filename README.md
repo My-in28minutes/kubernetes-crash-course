@@ -304,28 +304,55 @@ gcloud container clusters resize --zone us-central1-a zmobile-test --num-nodes=3
 
 Mine
 -----
-docker run -p 8080:8080 pndrns/hello-world-rest-api:0.0.1-RELEASE
-
 kubectl create deployment hello-world-rest-api --image=pndrns/hello-world-rest-api:0.0.1-RELEASE
 kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
+kubectl delete pod hello-world-rest-api-58ff5dd898-62l9d
 kubectl scale deployment hello-world-rest-api --replicas=3
-kubectl delete pod <>
-kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl autoscale deployment hello-world-rest-api --max=10 --cpu-percent=70
-#with  --record CHANGE-CAUSE will be recorded
-kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.2-RELEASE --record
+kubectl edit deployment hello-world-rest-api #minReadySeconds: 15
+
+kubectl get <OBJ> -n<NS> -o wide/yaml
+kubectl get <OBJ> --all-namespaces
+kubectl explain <OBJ>
+kubectl describe <OBJ>
+
 kubectl get events --sort-by=.metadata.creationTimestamp
 #Display the status of all components running on master node.
 kubectl get componentstatuses
+kubectl get pods --all-namespaces
+kubectl explain pods
+kubectl describe pod hello-world-rest-api-58ff5dd898-9trh2
+kubectl get pods -o wide
+kubectl get replicaset
+kubectl get rs
+kubectl get rs -o wide
+kubectl get deployment
+kubectl get service
 
-kubectl rollout history deployment hello-world-rest-api
-kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.1-RELEASE --record
-kubectl rollout status deployment hello-world-rest-api
+#Error Scenario
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=DUMMY_IMAGE:TEST
+kubectl get rs -o wide
+kubectl get pods
+kubectl describe pod hello-world-rest-api-85995ddd5c-msjsm
 kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=in28min/hello-world-rest-api:0.0.2.RELEASE
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+01.hello-world-rest-api:
+mvn clean install
+docker login
+docker push pndrns/hello-world-rest-api:0.0.1-RELEASE
+docker run -p 8080:8080 pndrns/hello-world-rest-api:0.0.1-RELEASE
+
+#with  --record CHANGE-CAUSE will be recorded
+kubectl set image deployment hello-world-rest-api hello-world-rest-api=pndrns/hello-world-rest-api:0.0.2-RELEASE --record
+kubectl rollout history deployment hello-world-rest-api
+kubectl rollout status deployment hello-world-rest-api
 kubectl rollout undo deployment hello-world-rest-api --to-revision=2
 kubectl rollout status deployment hello-world-rest-api
 kubectl rollout history deployment hello-world-rest-api
 
+#Logs
 kubectl get pods
 kubectl logs hello-world-rest-api-67c79fd44f-d6q9z -f
 # Execute the command again and again. Here every 2 secs run the curl
@@ -333,15 +360,17 @@ watch curl http://34.71.104.186:8080/hello-world
 #Send request every .1 sec.
 watch -n 0.1 curl 34.122.212.210:8080/hello-world
 
+kubectl get deployment hello-world-rest-api -o yaml
 kubectl get deployment hello-world-rest-api -o yaml > deployment.yaml
 kubectl get service hello-world-rest-api -o yaml > service.yaml
 kubectl delete all -l app=hello-world-rest-api
 # Combine deployment & Service togteher in one file below. Backup folder.
 kubectl apply -f deployment.yaml
+curl http://34.71.104.186:8080/hello-world 
 kubectl get all -o wide
-# Gives the comparison report between current deoloyment and deployment.yaml
+# Gives the comparison report between current deoloyment and updated deployment.yaml
 kubectl diff -f deployment.yaml
-# Keeps runnimg regularly
+# Keeps running regularly
 kubectl get svc --watch
 
 -----
