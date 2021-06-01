@@ -372,6 +372,9 @@ kubectl get all -o wide
 kubectl diff -f deployment.yaml
 # Keeps running regularly
 kubectl get svc --watch
+#Mupltiple Deployment, One service
+deployment-03-Multiple-Deployments-With-Same-Service.yaml
+kubectl apply -f deployment-03-Multiple-Deployments-With-Same-Service.yaml
 
 -----
 
